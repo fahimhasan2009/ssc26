@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10172a">
+  <title>SSC'26 school friends — Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-art">
+      <div class="brand"><span class="brand-mark">sf</span><span>SSC'26 <b>school friends</b></span></div>
+      <div class="art-copy">
+        <span class="eyebrow"><span class="live-dot"></span> OUR CLASSROOM, ONLINE</span>
+        <h1>Same class.<br><em>Forever connected.</em></h1>
+        <p>A little place for big memories, class updates, and the friends who made school special.</p>
+        <div class="friend-stack" aria-label="Classmates online">
+          <span>F</span><span>A</span><span>R</span><span>N</span><span>+</span>
+          <small>One class, countless memories</small>
+        </div>
+      </div>
+      <div class="art-orb orb-one"></div><div class="art-orb orb-two"></div>
+      <div class="art-footer">MADE FOR THE SSC'26 CREW <span>✦</span></div>
+    </section>
+    <section class="auth-panel">
+      <div class="mobile-brand brand"><span class="brand-mark">sf</span><span>SSC'26 <b>school friends</b></span></div>
+      <div class="auth-card">
+        <div class="auth-icon">✦</div>
+        <p class="eyebrow muted">WELCOME TO YOUR CLASS HUB</p>
+        <h2 id="authHeading">Good to see you.</h2>
+        <p class="subcopy" id="authSubcopy">Sign in with your school registration number.</p>
+        <form id="authForm">
+          <label for="regNo">Registration number</label>
+          <input id="regNo" name="regNo" autocomplete="username" inputmode="numeric" placeholder="e.g. 2600123" required maxlength="40">
+          <div id="passwordWrap" class="field-group">
+            <label for="password">Password</label>
+            <div class="password-field"><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" class="show-password" id="togglePassword" aria-label="Show password">Show</button></div>
+          </div>
+          <div id="confirmWrap" class="field-group hidden">
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat your password">
+          </div>
+          <p id="authNotice" class="notice" role="status" aria-live="polite"></p>
+          <button id="submitAuth" class="primary-btn" type="submit"><span>Sign in</span><span>↗</span></button>
+        </form>
+        <div class="auth-divider"><span>PRIVATE CLASS COMMUNITY</span></div>
+        <p class="security-note"><span>▣</span> Only students on the approved class list can join.</p>
+      </div>
+      <footer class="panel-footer">A small space for the people who made school unforgettable.</footer>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

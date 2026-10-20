@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10172a">
+  <title>SSC'26 school friends — Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="chat-page">
+  <div class="chat-app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="chat.html"><span class="brand-mark">sf</span><span>SSC'26 <b>school friends</b></span></a>
+        <button class="icon-btn mobile-close" id="closeSidebar" aria-label="Close classmates">×</button>
+      </div>
+      <div class="class-label"><span>YOUR CLASSROOM</span><span class="class-pill">2026</span></div>
+      <button class="room-item active" id="generalRoom"><span class="room-icon">✦</span><span><b>Class group</b><small>Everyone in one place</small></span><span class="room-arrow">›</span></button>
+      <div class="people-heading"><span>CLASSMATES</span><span id="studentCount">—</span></div>
+      <div class="search-wrap"><span>⌕</span><input id="studentSearch" placeholder="Find a classmate…" aria-label="Find a classmate"></div>
+      <div id="studentList" class="student-list"><div class="loading-row">Loading classmates…</div></div>
+      <div class="sidebar-bottom">
+        <div class="profile-avatar" id="myAvatar">?</div><div class="profile-meta"><b id="myName">Loading…</b><small id="myReg">Registration number</small></div>
+        <button class="icon-btn" id="signOut" title="Sign out" aria-label="Sign out">↪</button>
+      </div>
+    </aside>
+    <main class="chat-main">
+      <header class="chat-header">
+        <button class="icon-btn menu-toggle" id="openSidebar" aria-label="Open classmates">☰</button>
+        <div class="room-avatar">✦</div><div class="header-title"><h1>Class group</h1><p><span class="live-dot"></span> SSC'26 • shared room</p></div>
+        <div class="header-actions"><span class="secure-label">PRIVATE CLASS SPACE</span><button class="icon-btn" id="scrollLatest" title="Jump to latest message" aria-label="Jump to latest message">↓</button></div>
+      </header>
+      <section class="pinned-strip hidden" id="pinnedStrip"><span class="pin-symbol">⌁</span><div><small>PINNED MESSAGE</small><p id="pinnedText"></p></div><button class="icon-btn" id="clearPin" title="Unpin message">×</button></section>
+      <section id="messages" class="messages" aria-live="polite"><div class="welcome-card"><div class="welcome-star">✦</div><h2>Welcome to the class group</h2><p>Say hello, share an update, or bring back a school memory.</p></div></section>
+      <div class="composer-area">
+        <div class="composer-hint">Be kind. Keep it friendly. Make it memorable.</div>
+        <form id="messageForm" class="composer">
+          <textarea id="messageInput" rows="1" maxlength="2000" placeholder="Write a message to your classmates…" aria-label="Message" required></textarea>
+          <div class="composer-tools"><span id="charCount">0 / 2000</span><span class="composer-right"><span class="enter-hint">Enter to send</span><button id="sendMessage" class="send-btn" type="submit" aria-label="Send message">↑</button></span></div>
+        </form>
+        <p id="chatNotice" class="chat-notice" role="status" aria-live="polite"></p>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

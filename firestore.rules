@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function userDoc(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+    function isAdmin() {
+      return signedIn() && userDoc(request.auth.uid).isAdmin == true;
+    }
+    function isRoomMember() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    // Registration allow-list is private. Only the Admin SDK Cloud Function reads it.
+    match /allowedRegistrations/{regNo} {
+      allow read, write: if false;
+    }
+    match /users/{uid} {
+      allow read: if signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['registrationNumber','displayName','createdAt'])
+        && request.resource.data.registrationNumber is string
+        && request.resource.data.displayName is string;
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName']);
+      allow delete: if isAdmin();
+    }
+    match /rooms/{roomId}/messages/{messageId} {
+      allow read: if isRoomMember();
+      allow create: if isRoomMember()
+        && request.resource.data.keys().hasOnly(['text','senderUid','senderName','registrationNumber','createdAt','pinned','reactions'])
+        && request.resource.data.senderUid == request.auth.uid
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.pinned == false
+        && request.resource.data.reactions is map;
+      allow update: if isRoomMember() && (
+        (resource.data.senderUid == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pinned','pinnedAt'])
+          && request.resource.data.pinned is bool)
+        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions'])
+          && request.resource.data.reactions is map)
+        || (isAdmin() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pinned','pinnedAt','reactions']))
+      );
+      allow delete: if isRoomMember() && (resource.data.senderUid == request.auth.uid || isAdmin());
+    }
+  }
+}
